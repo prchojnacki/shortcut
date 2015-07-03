@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Shortcut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lvg-Vu-i0y">
+                                <rect key="frame" x="16" y="58" width="568" height="542"/>
+                            </mapView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MKB-qk-YI9">
+                                <rect key="frame" x="24" y="20" width="552" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="MKB-qk-YI9" secondAttribute="centerX" id="0Qh-LU-Ddl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MKB-qk-YI9" secondAttribute="trailing" constant="8" id="2sY-KM-A3k"/>
+                            <constraint firstAttribute="centerY" secondItem="MKB-qk-YI9" secondAttribute="centerY" constant="265" id="PRB-Yd-Qi4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Lvg-Vu-i0y" secondAttribute="bottom" id="UGf-Eh-TTo"/>
+                            <constraint firstItem="Lvg-Vu-i0y" firstAttribute="top" secondItem="MKB-qk-YI9" secondAttribute="bottom" constant="8" symbolic="YES" id="Ust-Qg-2Pe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Lvg-Vu-i0y" secondAttribute="trailing" id="YYh-oS-QLb"/>
+                            <constraint firstItem="MKB-qk-YI9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="bj6-RI-eC3"/>
+                            <constraint firstItem="Lvg-Vu-i0y" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="j7G-NM-jv1"/>
+                            <constraint firstItem="MKB-qk-YI9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pLL-tw-wgd"/>
+                            <constraint firstItem="Lvg-Vu-i0y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="pS4-LJ-drC"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="PRB-Yd-Qi4"/>
+                                <exclude reference="j7G-NM-jv1"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="Lvg-Vu-i0y" id="FFu-lO-dfX"/>
+                        <outlet property="searchValue" destination="MKB-qk-YI9" id="cMB-kO-b6K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
