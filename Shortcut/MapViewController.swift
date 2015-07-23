@@ -10,8 +10,9 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate, MKMapViewDelegate {
     var startLocation: String?
+    var start = CLLocationCoordinate2D()
     var endLocation: String?
     var route: MKRoute?
 
@@ -25,7 +26,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.locationManager.requestWhenInUseAuthorization()
         searchValue.delegate = self
+        self.mapView.delegate = self
         
         if let start = startLocation {
             println(start)
@@ -77,6 +80,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
 //                }
                 let found: MKMapItem = response.mapItems[0] as! MKMapItem
 //                let foundLocation = CLLocationCoordinate2D (latitude: found.placemark.location.coordinate.latitude, longitude: found.placemark.location.coordinate.longitude)
+                var annotation = MKPointAnnotation()
+                annotation.coordinate = found.placemark.coordinate
+                annotation.title = found.name
+                self.mapView.addAnnotation(annotation)
+//                self.mapView.centerCoordinate = found.placemark.coordinate
+                
                 let request = MKDirectionsRequest()
                 request.setSource(MKMapItem.mapItemForCurrentLocation())
                 request.setDestination(found)
@@ -87,7 +96,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
                 directions.calculateDirectionsWithCompletionHandler({(response: MKDirectionsResponse!, error: NSError!) in
                     if error != nil {
                         //handle error
+                        println("error")
+                        println(error)
                     } else {
+                        println("route found")
+//                        self.route = response.routes[0] as? MKRoute
+//                        self.mapView.addOverlay(self.route?.polyline)
                         self.showRoute(response)
                     }
                 })
@@ -97,7 +111,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
     
     func showRoute(response: MKDirectionsResponse) {
         for route in response.routes as! [MKRoute] {
-            mapView.addOverlay(route.polyline, level: MKOverlayLevel.AboveRoads)
+            self.mapView.addOverlay(route.polyline, level: MKOverlayLevel.AboveRoads)
             
             for step in route.steps {
                 println(step.instructions)
@@ -125,6 +139,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
         let loadlocation = CLLocationCoordinate2D(
             latitude: lat, longitude: long
         )
+        start = loadlocation
         
         mapView.centerCoordinate = loadlocation;
         let initialLocation = CLLocation(latitude: lat, longitude: long)
@@ -133,7 +148,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
     }
     
     func mapView(MapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-        let renderer = MKPolylineRenderer(overlay: overlay)
+        var renderer = MKPolylineRenderer(polyline: route?.polyline!)
         renderer.strokeColor = UIColor.blueColor()
         renderer.lineWidth = 5.0
         return renderer
